@@ -128,7 +128,7 @@ def get_smoking_recommendation(person, treatment_recommendation):
         treatment_recommendation.quitSmoking = True
         print(
             "This patient should strongly consider quitting smoking. Please "
-            "discuss options to support patient in this endeavor."
+            "discuss options to support patient in this endeavor. \n"
         )
 
 
@@ -151,8 +151,12 @@ def get_arterial_elasticity_recommendation(
         treatment = "Nebivol should be considered for this patient."
     else:
         treatment_recommendation.Nebivol = False
+        arterial_elasticity = "normal"
         treatment = "No arterial elasticity treatment is needed at this time."
-    print("This patient's arterial elasticity is", arterial_elasticity+".", treatment)
+    print(
+        "This patient's arterial elasticity is",
+        arterial_elasticity+".", treatment, "\n"
+    )
 
 
 def get_cholesterol_recommendation(
@@ -172,7 +176,7 @@ def get_cholesterol_recommendation(
         ldl = "borderline"
         treatment_recommendation.Statins = True
         treatment = "Discuss possible statin use with patient."
-    print("This patient's LDL cholesterol is", ldl+".", treatment)
+    print("This patient's LDL cholesterol is", ldl+".", treatment, "\n")
 
 
 def get_c_reactive_protein_recommendation(
@@ -188,7 +192,10 @@ def get_c_reactive_protein_recommendation(
         result = "optimal"
         treatment_recommendation.antiInflammatoryTherapy = False
         treatment = "No treatment is recommended at this time."
-    print("This patient's C-reactive protein levels are", result+".", treatment)
+    print(
+        "This patient's C-reactive protein levels are",
+        result+".", treatment, "\n"
+    )
 
 
 def get_homocysteine_recommendation(
@@ -208,7 +215,7 @@ def get_homocysteine_recommendation(
         result = "borderline"
         treatment_recommendation.folicAcid = True
         treatment = "Discuss possible folic acid use with patient."
-    print("This patient's homocysteine levels are", result+".", treatment)
+    print("This patient's homocysteine levels are", result+".", treatment, "\n")
 
 
 def get_pai1_recommendation(
@@ -226,7 +233,7 @@ def get_pai1_recommendation(
         treatment = "PAI-1 therapy is recommended for this patient."
     print(
         "This patient's plasminogen activator inhibitor 1 levels are",
-        result+".", treatment
+        result+".", treatment, "\n"
     )
 
 
@@ -244,8 +251,10 @@ def evaluate_risk(onto, person):
 
 
 def screen_person(onto, person, person_index):
+    onto_person_index = person_index + 1
     screening_file_path = input(
-        "This person is considered high risk for CVD. Please order the following"
+        "\n"
+        "Patient "+str(onto_person_index)+" is considered high risk for CVD. Please order the following"
         " tests: \n"
         "1. Pulse Contour Analysis \n"
         "2. Resting and Exercise Blood Pressure \n"
@@ -259,7 +268,6 @@ def screen_person(onto, person, person_index):
     )
     # screening_file_path = "/Users/ashish/Desktop/BMI210/project/test_screen_data.csv"
     screening_data = pd.read_csv(os.path.join(os.getcwd(), screening_file_path))
-    onto_person_index = person_index + 1
     cvd_assessment = onto.cvdAssessment(
         onto_person_index,
         pulseContourAnalysis = screening_data.iloc[person_index]["pulse_contour_analysis"],
@@ -286,15 +294,16 @@ def screen_person(onto, person, person_index):
 
 
 def recommend_treatment(onto, person, person_index, cvd_assessment):
+    onto_person_index = person_index + 1
     labs_file_path = input(
-        "CVD has been detected in this patient. \n"
+        "\n"
+        "CVD has been detected in Patient "+str(onto_person_index)+". \n"
         "Please order the following labs to guide treatment. "
         "Once you have the results, please provide the csv file path here "
         "(i.e. test_data/test_labs_data.csv): "
     )
     # labs_file_path = "/Users/ashish/Desktop/BMI210/project/test_labs_data.csv"
     labs_data = pd.read_csv(os.path.join(os.getcwd(), labs_file_path))
-    onto_person_index = person_index + 1
     treatment_assessment = onto.treatmentAssessment(
         onto_person_index,
         HDLCholesterol = labs_data.iloc[person_index]["hdl_cholesterol"],
@@ -305,7 +314,6 @@ def recommend_treatment(onto, person, person_index, cvd_assessment):
         plasminogenActivatorInhibitor1 = labs_data.iloc[person_index]["pai1"],
         Triglycerides = labs_data.iloc[person_index]["triglycerides"]
     )
-    # TODO add treatments to ontology
     treatment_recommendation = onto.Treatment(
         onto_person_index
     )
@@ -316,17 +324,19 @@ def recommend_treatment(onto, person, person_index, cvd_assessment):
     get_homocysteine_recommendation(person, treatment_assessment, treatment_recommendation)
     get_pai1_recommendation(person, treatment_assessment, treatment_recommendation)
 
+
 def main():
     onto = get_ontology("file://cvd_early_detection.owl").load()
     risk_factor_file_path = input(
+        "\n"
         "Welcome to the CVD Early Detection Screen. Let's begin. \n "
-        "Does this patient have any CVD risk factors? Please provide a csv file "
-        "path with this patient's CVD risk factors "
-        "(i.e. test_data/test_risk_factor_data.csv): "
+        "Please provide a csv file containing risk factor metrics for each of "
+        "your patients (i.e. test_data/test_risk_factor_data.csv): "
     )
     # risk_factor_file_path = "/Users/ashish/Desktop/BMI210/project/test_data.csv"
     risk_factor_data = pd.read_csv(os.path.join(os.getcwd(), risk_factor_file_path))
     for person_index in risk_factor_data.index:
+    #for person_index in range(3, 11):
         onto_person_index = person_index + 1
         person = onto.Person(
             onto_person_index,
@@ -338,11 +348,25 @@ def main():
             hasPersonalHistory = bool(risk_factor_data.iloc[person_index]["has_personal_history"]),
             isSmoker = bool(risk_factor_data.iloc[person_index]["is_smoker"])
         )
+        disease_present = False
         evaluate_risk(onto, person)
         if onto.HighRiskCVD in person.is_a:
             cvd_assessment, disease_present = screen_person(onto, person, person_index)
             if disease_present or person.hasDiabetes:
                 recommend_treatment(onto, person, person_index, cvd_assessment)
+            else:
+                print(
+                    "CVD has not been detected in Patient "+
+                    str(onto_person_index)+"."
+                )
+        else:
+            print(
+                "Patient "+str(onto_person_index)+" is not considered "
+                "high risk for CVD. No further screening is necessary."
+            )
+
+        input("Please press Enter when you are ready to proceed.")
+    print("You have completed this set of patient evaluations.")
 
 
 if __name__ == "__main__":

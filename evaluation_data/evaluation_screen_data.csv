@@ -1,0 +1,11 @@
+pulse_contour_analysis,resting_blood_pressure_sbp,resting_blood_pressure_dbp,exercise_blood_pressure_sbp_rise,bnp,electrocardiogram_abnormalities,lv_ultrasound,microalbuminuria,optic_fundus
+12.5,138,87,35,67,diagnostic,2.81,0.76,1
+7.6,150,91,45,101,diagnostic,3,1.01,3.4
+8,142,95,41,105,diagnostic,2.8,1.05,1
+8.5,120,84,28,40,None,2.65,0.5,3.4
+11.2,133,89,32,76,Nonspecific,2.68,0.91,3.5
+11,128,83,26,47,None,2.68,0.56,0.5
+7.9,147,90,50,101,Nonspecific,2.9,1,1.5
+14,125,83,28,43,Nonspecific,2.67,0.52,1.1
+10.5,145,90,29,45,None,2.58,0.48,1
+7.5,141,92,40,100,Nonspecific,3,1.2,3.6
