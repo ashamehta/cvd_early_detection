@@ -1,0 +1,3 @@
+age,sex,primary_relative_with_cvd,secondary_relative_with_cvd,has_diabetes,has_personal_history,is_smoker
+25,female,0,1,FALSE,FALSE,FALSE
+70,male,2,1,TRUE,TRUE,FALSE

@@ -1,0 +1,644 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ashish/ontologies/2022/2/cvd_early_detection"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/ashish/ontologies/2022/2/cvd_early_detection">
+    <Prefix name="" IRI="http://www.semanticweb.org/ashish/ontologies/2022/2/cvd_early_detection"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Declaration>
+        <Class IRI="#Assessment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BNP"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Diabetes"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Electrocardiogram"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Glucose"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HDLCholesterol"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HighRiskCVD"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Homocysteine"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LDLCholesterol"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LVUltrasound"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LowRiskCVD"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Microalbuminuria"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Nebivol"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PAI1Therapy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Person"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Treatment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Triglycerides"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#antiInflammatoryTherapy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#arterialElasticity"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#bloodPressure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cReactiveProtein"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cvdAssessment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cvdDetected"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#cvdNotDetected"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#exerciseBloodPressure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#exerciseRegimen"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#folicAcid"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#highRiskAge"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#highRiskFamilyHistory"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#highRiskPersonalHistory"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#highRiskSmoker"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#modifyDiet"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#opticFundus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#plasminogenActivatorInhibitor1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#pulseContourAnalysis"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#restingBloodPressure"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#treatmentAssessment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Treats"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isTreatedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#treatmentRecommendation"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#age"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cvdPrimaryRelative"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cvdRelative"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#cvdSecondaryRelative"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDiabetes"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasPersonalHistory"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#isSmoker"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#riskScore"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#sex"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Diabetes"/>
+        <DataHasValue>
+            <DataProperty IRI="#hasDiabetes"/>
+            <Literal>true</Literal>
+        </DataHasValue>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#HighRiskCVD"/>
+        <ObjectUnionOf>
+            <Class IRI="#highRiskAge"/>
+            <Class IRI="#highRiskFamilyHistory"/>
+            <Class IRI="#highRiskPersonalHistory"/>
+            <Class IRI="#highRiskSmoker"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#LowRiskCVD"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Person"/>
+            <ObjectComplementOf>
+                <Class IRI="#HighRiskCVD"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#cvdDetected"/>
+        <DataSomeValuesFrom>
+            <DataProperty IRI="#riskScore"/>
+            <DatatypeRestriction>
+                <Datatype abbreviatedIRI="xsd:int"/>
+                <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minExclusive">
+                    <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">10</Literal>
+                </FacetRestriction>
+            </DatatypeRestriction>
+        </DataSomeValuesFrom>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#cvdNotDetected"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Person"/>
+            <ObjectComplementOf>
+                <Class IRI="#cvdDetected"/>
+            </ObjectComplementOf>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#highRiskAge"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Person"/>
+            <ObjectUnionOf>
+                <ObjectIntersectionOf>
+                    <DataSomeValuesFrom>
+                        <DataProperty IRI="#age"/>
+                        <DatatypeRestriction>
+                            <Datatype abbreviatedIRI="xsd:int"/>
+                            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minExclusive">
+                                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">44</Literal>
+                            </FacetRestriction>
+                        </DatatypeRestriction>
+                    </DataSomeValuesFrom>
+                    <DataSomeValuesFrom>
+                        <DataProperty IRI="#sex"/>
+                        <DataOneOf>
+                            <Literal>male</Literal>
+                            <Literal>other</Literal>
+                        </DataOneOf>
+                    </DataSomeValuesFrom>
+                </ObjectIntersectionOf>
+                <ObjectIntersectionOf>
+                    <DataSomeValuesFrom>
+                        <DataProperty IRI="#age"/>
+                        <DatatypeRestriction>
+                            <Datatype abbreviatedIRI="xsd:int"/>
+                            <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minExclusive">
+                                <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">54</Literal>
+                            </FacetRestriction>
+                        </DatatypeRestriction>
+                    </DataSomeValuesFrom>
+                    <DataHasValue>
+                        <DataProperty IRI="#sex"/>
+                        <Literal>female</Literal>
+                    </DataHasValue>
+                </ObjectIntersectionOf>
+            </ObjectUnionOf>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#highRiskFamilyHistory"/>
+        <ObjectUnionOf>
+            <ObjectIntersectionOf>
+                <Class IRI="#Person"/>
+                <DataSomeValuesFrom>
+                    <DataProperty IRI="#cvdPrimaryRelative"/>
+                    <DatatypeRestriction>
+                        <Datatype abbreviatedIRI="xsd:int"/>
+                        <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minExclusive">
+                            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">0</Literal>
+                        </FacetRestriction>
+                    </DatatypeRestriction>
+                </DataSomeValuesFrom>
+            </ObjectIntersectionOf>
+            <ObjectIntersectionOf>
+                <Class IRI="#Person"/>
+                <DataSomeValuesFrom>
+                    <DataProperty IRI="#cvdSecondaryRelative"/>
+                    <DatatypeRestriction>
+                        <Datatype abbreviatedIRI="xsd:int"/>
+                        <FacetRestriction facet="http://www.w3.org/2001/XMLSchema#minExclusive">
+                            <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#int">1</Literal>
+                        </FacetRestriction>
+                    </DatatypeRestriction>
+                </DataSomeValuesFrom>
+            </ObjectIntersectionOf>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#highRiskPersonalHistory"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Person"/>
+            <DataAllValuesFrom>
+                <DataProperty IRI="#hasPersonalHistory"/>
+                <DataOneOf>
+                    <Literal>true</Literal>
+                </DataOneOf>
+            </DataAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#highRiskSmoker"/>
+        <ObjectIntersectionOf>
+            <Class IRI="#Person"/>
+            <DataAllValuesFrom>
+                <DataProperty IRI="#isSmoker"/>
+                <DataOneOf>
+                    <Literal>true</Literal>
+                </DataOneOf>
+            </DataAllValuesFrom>
+        </ObjectIntersectionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class IRI="#BNP"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Diabetes"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Electrocardiogram"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Glucose"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HDLCholesterol"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#HighRiskCVD"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Homocysteine"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Homocysteine"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isTreatedBy"/>
+            <Class IRI="#folicAcid"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LDLCholesterol"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LVUltrasound"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LowRiskCVD"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Microalbuminuria"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Nebivol"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Nebivol"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Treats"/>
+            <Class IRI="#arterialElasticity"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PAI1Therapy"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PAI1Therapy"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Treats"/>
+            <Class IRI="#plasminogenActivatorInhibitor1"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Triglycerides"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#antiInflammatoryTherapy"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#antiInflammatoryTherapy"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Treats"/>
+            <Class IRI="#cReactiveProtein"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#arterialElasticity"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#arterialElasticity"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isTreatedBy"/>
+            <Class IRI="#Nebivol"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#bloodPressure"/>
+        <Class IRI="#arterialElasticity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cReactiveProtein"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cReactiveProtein"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isTreatedBy"/>
+            <Class IRI="#antiInflammatoryTherapy"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cvdAssessment"/>
+        <Class IRI="#Assessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cvdDetected"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#cvdNotDetected"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#exerciseBloodPressure"/>
+        <Class IRI="#bloodPressure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#exerciseRegimen"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#folicAcid"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#folicAcid"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#Treats"/>
+            <Class IRI="#Homocysteine"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#highRiskAge"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#highRiskFamilyHistory"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#highRiskPersonalHistory"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#highRiskSmoker"/>
+        <Class IRI="#Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#modifyDiet"/>
+        <Class IRI="#Treatment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#opticFundus"/>
+        <Class IRI="#cvdAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#plasminogenActivatorInhibitor1"/>
+        <Class IRI="#treatmentAssessment"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#plasminogenActivatorInhibitor1"/>
+        <ObjectSomeValuesFrom>
+            <ObjectProperty IRI="#isTreatedBy"/>
+            <Class IRI="#PAI1Therapy"/>
+        </ObjectSomeValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#pulseContourAnalysis"/>
+        <Class IRI="#arterialElasticity"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#restingBloodPressure"/>
+        <Class IRI="#bloodPressure"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#treatmentAssessment"/>
+        <Class IRI="#Assessment"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#HighRiskCVD"/>
+        <Class IRI="#LowRiskCVD"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Person"/>
+        <Class IRI="#Treatment"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#cvdDetected"/>
+        <Class IRI="#cvdNotDetected"/>
+    </DisjointClasses>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#Treats"/>
+        <ObjectProperty IRI="#isTreatedBy"/>
+    </InverseObjectProperties>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#treatmentRecommendation"/>
+        <Class IRI="#HighRiskCVD"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#treatmentRecommendation"/>
+        <Class IRI="#Treatment"/>
+    </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#cvdPrimaryRelative"/>
+        <DataProperty IRI="#cvdRelative"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#cvdSecondaryRelative"/>
+        <DataProperty IRI="#cvdRelative"/>
+    </SubDataPropertyOf>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#age"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#cvdPrimaryRelative"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#cvdRelative"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#cvdSecondaryRelative"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasDiabetes"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#hasPersonalHistory"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#isSmoker"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#riskScore"/>
+    </FunctionalDataProperty>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#sex"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#age"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#cvdPrimaryRelative"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#cvdRelative"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#cvdSecondaryRelative"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasDiabetes"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#hasPersonalHistory"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#isSmoker"/>
+        <Class IRI="#Person"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#riskScore"/>
+        <Class IRI="#HighRiskCVD"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#age"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cvdPrimaryRelative"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cvdRelative"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#cvdSecondaryRelative"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasDiabetes"/>
+        <DataOneOf>
+            <Literal>false</Literal>
+            <Literal>true</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#hasPersonalHistory"/>
+        <DataOneOf>
+            <Literal>false</Literal>
+            <Literal>true</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#isSmoker"/>
+        <DataOneOf>
+            <Literal>false</Literal>
+            <Literal>true</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#riskScore"/>
+        <Datatype abbreviatedIRI="xsd:int"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#sex"/>
+        <DataOneOf>
+            <Literal>female</Literal>
+            <Literal>male</Literal>
+            <Literal>other</Literal>
+        </DataOneOf>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#highRiskPersonalHistory</IRI>
+        <Literal>Individuals who present with a history of an abnormal risk factor (blood pressure, cholesterol, blood sugar) or a previous presumed cardiovascular event.</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
