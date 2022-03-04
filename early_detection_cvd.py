@@ -1,4 +1,3 @@
-#TODO change person_index system
 """
 Clinical Decision Support for Early Detection of CVD
 
