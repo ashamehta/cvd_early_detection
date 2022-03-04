@@ -2,4 +2,4 @@
 TODO
 
 Usage: `python3 early_detection_cvd.py`  
-- To follow the prompts, use the relevant test data provided in `test_data`. 
+This script prompts the clinician user to provide up to three different sets of tests to the system over time. The correct data format of these test results can be found in the example csv files in `test_data`.
