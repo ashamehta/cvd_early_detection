@@ -124,72 +124,106 @@ def get_bnp_result(cvd_assessment):
         return "borderline"
 
 
-def get_smoking_recommendation(person):
+def get_smoking_recommendation(person, treatment_recommendation):
     if person.isSmoker:
+        treatment_recommendation.quitSmoking = True
         print(
             "This patient should strongly consider quitting smoking. Please "
             "discuss options to support patient in this endeavor."
         )
 
 
-def get_arterial_elasticity_recommendation(person, cvd_assessment):
+def get_arterial_elasticity_recommendation(
+    person,
+    cvd_assessment,
+    treatment_recommendation
+):
     arterial_elasticity_results = []
     pulse_contour_analysis_result = arterial_elasticity_results.append(get_pulse_contour_analysis_result(person, cvd_assessment))
     resting_bp_result = arterial_elasticity_results.append(get_resting_blood_pressure_result(cvd_assessment))
     exercise_bp_result = arterial_elasticity_results.append(get_exercise_blood_pressure_result(cvd_assessment))
     if "abnormal" in arterial_elasticity_results:
         arterial_elasticity = "abnormal"
+        treatment_recommendation.Nebivol = True
         treatment = "Nebivol should be considered for this patient."
     elif "borderline" in arterial_elasticity_results:
         arterial_elasticity = "borderline"
+        treatment_recommendation.Nebivol = True
         treatment = "Nebivol should be considered for this patient."
     else:
+        treatment_recommendation.Nebivol = False
         treatment = "No arterial elasticity treatment is needed at this time."
     print("This patient's arterial elasticity is", arterial_elasticity+".", treatment)
 
 
-def get_cholesterol_recommendation(person, treatment_assessment):
+def get_cholesterol_recommendation(
+    person,
+    treatment_assessment,
+    treatment_recommendation
+):
     if treatment_assessment.LDLCholesterol <= 100:
         ldl = "optimal"
+        treatment_recommendation.Statins = False
         treatment = "No cholesterol treatment is needed at this time."
     elif treatment_assessment.LDLCholesterol >= 130:
         ldl = "abnormal"
+        treatment_recommendation.Statins = True
         treatment = "Statins are recommended for this patient."
     else:
         ldl = "borderline"
+        treatment_recommendation.Statins = True
         treatment = "Discuss possible statin use with patient."
     print("This patient's LDL cholesterol is", ldl+".", treatment)
 
 
-def get_c_reactive_protein_recommendation(person, treatment_assessment):
+def get_c_reactive_protein_recommendation(
+    person,
+    treatment_assessment,
+    treatment_recommendation
+):
     if treatment_assessment.cReactiveProtein > 0.300:
         result = "abnormal"
+        treatment_recommendation.antiInflammatoryTherapy = True
         treatment = "Anti-inflammatory therapy is recommended for this patient."
     else:
         result = "optimal"
+        treatment_recommendation.antiInflammatoryTherapy = False
         treatment = "No treatment is recommended at this time."
     print("This patient's C-reactive protein levels are", result+".", treatment)
 
 
-def get_homocysteine_recommendation(person, treatment_assessment):
+def get_homocysteine_recommendation(
+    person,
+    treatment_assessment,
+    treatment_recommendation
+):
     if treatment_assessment.Homocysteine <= 10:
         result = "optimal"
+        treatment_recommendation.folicAcid = False
         treatment = "No treatment is recommended at this time."
     elif treatment_assessment.Homocysteine > 12:
         result = "abnormal"
+        treatment_recommendation.folicAcid = True
         treatment = "Folic acid is recommended for this patient."
     else:
         result = "borderline"
+        treatment_recommendation.folicAcid = True
         treatment = "Discuss possible folic acid use with patient."
     print("This patient's homocysteine levels are", result+".", treatment)
 
 
-def get_pai1_recommendation(person, treatment_assessment):
+def get_pai1_recommendation(
+    person,
+    treatment_assessment,
+    treatment_recommendation
+):
     if treatment_assessment.plasminogenActivatorInhibitor1 <= 43:
         result = "optimal"
+        treatment_recommendation.PAI1Therapy = False
         treatment = "No treatment is recommended at this time."
     else:
         result = "abnormal"
+        treatment_recommendation.PAI1Therapy = True
         treatment = "PAI-1 therapy is recommended for this patient."
     print(
         "This patient's plasminogen activator inhibitor 1 levels are",
@@ -271,12 +305,15 @@ def recommend_treatment(onto, person, person_index, cvd_assessment):
         Triglycerides = labs_data.iloc[person_index]["triglycerides"]
     )
     # TODO add treatments to ontology
-    get_smoking_recommendation(person)
-    get_arterial_elasticity_recommendation(person, cvd_assessment)
-    get_cholesterol_recommendation(person, treatment_assessment)
-    get_c_reactive_protein_recommendation(person, treatment_assessment)
-    get_homocysteine_recommendation(person, treatment_assessment)
-    get_pai1_recommendation(person, treatment_assessment)
+    treatment_recommendation = onto.Treatment(
+        onto_person_index
+    )
+    get_smoking_recommendation(person, treatment_recommendation)
+    get_arterial_elasticity_recommendation(person, cvd_assessment, treatment_recommendation)
+    get_cholesterol_recommendation(person, treatment_assessment, treatment_recommendation)
+    get_c_reactive_protein_recommendation(person, treatment_assessment, treatment_recommendation)
+    get_homocysteine_recommendation(person, treatment_assessment, treatment_recommendation)
+    get_pai1_recommendation(person, treatment_assessment, treatment_recommendation)
 
 def main():
     onto = get_ontology("file://cvd_early_detection.owl").load()
