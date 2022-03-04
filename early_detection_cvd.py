@@ -255,7 +255,8 @@ def screen_person(onto, person, person_index):
         "5. LV Ultrasound \n"
         "6. Microalbuminaria \n"
         "7. Optic Fundus \n"
-        "Once you have the results, please provide the file path here: "
+        "Once you have the results, please provide the file path here "
+        "(i.e. test_data/test_screen_data.csv): "
     )
     # screening_file_path = "/Users/ashish/Desktop/BMI210/project/test_screen_data.csv"
     screening_data = pd.read_csv(os.path.join(os.getcwd(), screening_file_path))
@@ -289,7 +290,8 @@ def recommend_treatment(onto, person, person_index, cvd_assessment):
     labs_file_path = input(
         "CVD has been detected in this patient. \n"
         "Please order the following labs to guide treatment. "
-        "Once you have the results, please provide the file path here: "
+        "Once you have the results, please provide the csv file path here "
+        "(i.e. test_data/test_labs_data.csv): "
     )
     # labs_file_path = "/Users/ashish/Desktop/BMI210/project/test_labs_data.csv"
     labs_data = pd.read_csv(os.path.join(os.getcwd(), labs_file_path))
@@ -319,8 +321,9 @@ def main():
     onto = get_ontology("file://cvd_early_detection.owl").load()
     risk_factor_file_path = input(
         "Welcome to the CVD Early Detection Screen. Let's begin. \n "
-        "Does this patient have any CVD risk factors? (Please provide a csv file "
-        "path with this patient's CVD risk factors): "
+        "Does this patient have any CVD risk factors? Please provide a csv file "
+        "path with this patient's CVD risk factors "
+        "(i.e. test_data/test_risk_factor_data.csv): "
     )
     # risk_factor_file_path = "/Users/ashish/Desktop/BMI210/project/test_data.csv"
     risk_factor_data = pd.read_csv(os.path.join(os.getcwd(), risk_factor_file_path))
