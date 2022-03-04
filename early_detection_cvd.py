@@ -124,6 +124,14 @@ def get_bnp_result(cvd_assessment):
         return "borderline"
 
 
+def get_smoking_recommendation(person):
+    if person.isSmoker:
+        print(
+            "This patient should strongly consider quitting smoking. Please "
+            "discuss options to support patient in this endeavor."
+        )
+
+
 def get_arterial_elasticity_recommendation(person, cvd_assessment):
     arterial_elasticity_results = []
     pulse_contour_analysis_result = arterial_elasticity_results.append(get_pulse_contour_analysis_result(person, cvd_assessment))
@@ -138,6 +146,7 @@ def get_arterial_elasticity_recommendation(person, cvd_assessment):
     else:
         treatment = "No arterial elasticity treatment is needed at this time."
     print("This patient's arterial elasticity is", arterial_elasticity+".", treatment)
+
 
 def get_cholesterol_recommendation(person, treatment_assessment):
     if treatment_assessment.LDLCholesterol <= 100:
@@ -174,6 +183,20 @@ def get_homocysteine_recommendation(person, treatment_assessment):
         treatment = "Discuss possible folic acid use with patient."
     print("This patient's homocysteine levels are", result+".", treatment)
 
+
+def get_pai1_recommendation(person, treatment_assessment):
+    if treatment_assessment.plasminogenActivatorInhibitor1 <= 43:
+        result = "optimal"
+        treatment = "No treatment is recommended at this time."
+    else:
+        result = "abnormal"
+        treatment = "PAI-1 therapy is recommended for this patient."
+    print(
+        "This patient's plasminogen activator inhibitor 1 levels are",
+        result+".", treatment
+    )
+
+
 def evaluate_risk(onto, person):
     if person.age > 44 and person.sex == "male":
         person.is_a.append(onto.highRiskAge)
@@ -201,7 +224,7 @@ def screen_person(onto, person, person_index):
         "Once you have the results, please provide the file path here: "
     )
     # screening_file_path = "/Users/ashish/Desktop/BMI210/project/test_screen_data.csv"
-    screening_data = pd.read_csv(screening_file_path)
+    screening_data = pd.read_csv(os.path.join(os.getcwd(), screening_file_path))
     onto_person_index = person_index + 1
     cvd_assessment = onto.cvdAssessment(
         onto_person_index,
@@ -230,12 +253,12 @@ def screen_person(onto, person, person_index):
 
 def recommend_treatment(onto, person, person_index, cvd_assessment):
     labs_file_path = input(
-        "CVD has been detected in this patient. Please order the following "
-        "labs to guide treatment. Once you have the results, please "
-        "provide the file path here: "
+        "CVD has been detected in this patient. \n"
+        "Please order the following labs to guide treatment. "
+        "Once you have the results, please provide the file path here: "
     )
     # labs_file_path = "/Users/ashish/Desktop/BMI210/project/test_labs_data.csv"
-    labs_data = pd.read_csv(labs_file_path)
+    labs_data = pd.read_csv(os.path.join(os.getcwd(), labs_file_path))
     onto_person_index = person_index + 1
     treatment_assessment = onto.treatmentAssessment(
         onto_person_index,
@@ -248,19 +271,22 @@ def recommend_treatment(onto, person, person_index, cvd_assessment):
         Triglycerides = labs_data.iloc[person_index]["triglycerides"]
     )
     # TODO add treatments to ontology
+    get_smoking_recommendation(person)
     get_arterial_elasticity_recommendation(person, cvd_assessment)
     get_cholesterol_recommendation(person, treatment_assessment)
     get_c_reactive_protein_recommendation(person, treatment_assessment)
     get_homocysteine_recommendation(person, treatment_assessment)
+    get_pai1_recommendation(person, treatment_assessment)
 
 def main():
     onto = get_ontology("file://cvd_early_detection.owl").load()
     risk_factor_file_path = input(
-        "Please provide csv file path to patient(s)' risk factors: "
+        "Welcome to the CVD Early Detection Screen. Let's begin. \n "
+        "Does this patient have any CVD risk factors? (Please provide a csv file "
+        "path with this patient's CVD risk factors): "
     )
     # risk_factor_file_path = "/Users/ashish/Desktop/BMI210/project/test_data.csv"
-    risk_factor_data = pd.read_csv(risk_factor_file_path)
-    # print(risk_factor_data)
+    risk_factor_data = pd.read_csv(os.path.join(os.getcwd(), risk_factor_file_path))
     for person_index in risk_factor_data.index:
         onto_person_index = person_index + 1
         person = onto.Person(
@@ -278,6 +304,7 @@ def main():
             cvd_assessment, disease_present = screen_person(onto, person, person_index)
             if disease_present or person.hasDiabetes:
                 recommend_treatment(onto, person, person_index, cvd_assessment)
+
 
 if __name__ == "__main__":
     main()
