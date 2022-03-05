@@ -5,4 +5,4 @@ This script uses decision criteria designed for detection of early cardiac disea
 Usage: `python3 early_detection_cvd.py`  
 This script prompts the clinician user to provide up to three different sets of tests to the system over time. The correct data format of these test results can be found in the example csv files in `test_data`.
 
-Screening Criteria from *Cohn, J. N., Hoke, L., Whitwam, W., Sommers, P. A., Taylor, A. L., Duprez, D., ... & Florea, N. (2003). Screening for early detection of cardiovascular disease in asymptomatic individuals. American heart journal, 146(4), 679-685.*
+Screening criteria from *Cohn, J. N., Hoke, L., Whitwam, W., Sommers, P. A., Taylor, A. L., Duprez, D., ... & Florea, N. (2003). Screening for early detection of cardiovascular disease in asymptomatic individuals. American heart journal, 146(4), 679-685.*
